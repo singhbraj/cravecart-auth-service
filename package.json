@@ -4,8 +4,12 @@
   "description": "A user management service",
   "main": "index.js",
   "scripts": {
-    "dev":"node src/server.js"
+    "dev": "node src/server.js"
   },
   "author": "Braj <braj333singh@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.14.9",
+    "typescript": "^5.5.2"
+  }
 }
