@@ -1,35 +1,33 @@
 {
-  "name": "auth-service",
-  "version": "1.0.0",
-  "description": "A user management service",
-  "main": "index.js",
-  "scripts": {
-    "dev": "node src/server.js",
-    "format:check": "prettier . --check",
-    "format:fix": "prettier . --write",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "prepare": "husky install"
-  },
-  "author": "Braj <braj333singh@gmail.com>",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^20.14.9",
-    "@typescript-eslint/eslint-plugin": "^7.15.0",
-    "@typescript-eslint/parser": "^7.15.0",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "husky": "^8.0.0",
-    "lint-staged": "^14.0.1",
-    "prettier": "3.3.2",
-    "typescript": "^5.5.2"
-  },
-  "lint-staged": {
-    "*.ts": [
-        "npm run lint:fix",
-        "npm run format:fix"
-    ]
-}
-  
-
+    "name": "auth-service",
+    "version": "1.0.0",
+    "description": "A user management service",
+    "main": "index.js",
+    "scripts": {
+        "dev": "node src/server.js",
+        "format:check": "prettier . --check",
+        "format:fix": "prettier . --write",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "prepare": "husky install"
+    },
+    "author": "Braj <braj333singh@gmail.com>",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^20.14.9",
+        "@typescript-eslint/eslint-plugin": "^7.15.0",
+        "@typescript-eslint/parser": "^7.15.0",
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "husky": "^8.0.0",
+        "lint-staged": "^14.0.1",
+        "prettier": "3.3.2",
+        "typescript": "^5.5.2"
+    },
+    "lint-staged": {
+        "*.ts": [
+            "npm run lint:fix",
+            "npm run format:fix"
+        ]
+    }
 }
