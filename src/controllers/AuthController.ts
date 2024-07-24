@@ -2,7 +2,7 @@ import createHttpError from "http-errors"
 import { UserService } from "./../services/UserService"
 import { JwtPayload } from "jsonwebtoken"
 import { NextFunction, Response } from "express"
-import { RegisterUserRequest } from "../types"
+import { AuthRequest, RegisterUserRequest } from "../types"
 import { Logger } from "winston"
 import { validationResult } from "express-validator"
 import { TokenService } from "../services/TokenService"
@@ -162,5 +162,10 @@ export class AuthController {
             next(err)
             return
         }
+    }
+
+    async self(req: AuthRequest, res: Response) {
+        const user = await this.userService.findById(Number(req.auth.sub))
+        res.json(user)
     }
 }
