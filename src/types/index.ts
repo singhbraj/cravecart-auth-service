@@ -27,3 +27,7 @@ export interface AuthRequest extends Request {
         email: string
     }
 }
+
+export interface IRefreshTokenPayload {
+    id: string
+}
