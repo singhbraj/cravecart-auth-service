@@ -1,4 +1,4 @@
-import express, { NextFunction, Response } from "express"
+import express, { NextFunction, Request, Response } from "express"
 import { TenantController } from "../controllers/TenantController"
 import { Tenant } from "../entity/Tenants"
 import { AppDataSource } from "../config/data-source"
@@ -24,6 +24,30 @@ router.post(
     tenantValidator,
     (req: CreateTenantRequest, res: Response, next: NextFunction) =>
         tenantController.create(req, res, next),
+)
+
+router.patch(
+    "/:id",
+    authenticate,
+    canAccess([Roles.ADMIN]),
+    tenantValidator,
+    (req: CreateTenantRequest, res: Response, next: NextFunction) =>
+        tenantController.update(req, res, next),
+)
+
+router.get("/", (req: Request, res: Response, next: NextFunction) =>
+    tenantController.getAll(req, res, next),
+)
+
+router.get("/:id", (req: Request, res: Response, next: NextFunction) =>
+    tenantController.getOne(req, res, next),
+)
+
+router.delete(
+    "/:id",
+    authenticate,
+    canAccess([Roles.ADMIN]),
+    (req, res, next) => tenantController.destroy(req, res, next),
 )
 
 export default router
