@@ -52,7 +52,6 @@ describe("POST /users", () => {
 
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
-            console.log({ users })
             expect(users).toHaveLength(1)
             expect(users[0].email).toBe(userData.email)
         })

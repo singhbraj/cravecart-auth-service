@@ -138,13 +138,12 @@ describe("POST /auth/register", () => {
                 email: "braj333singh@gmail.com",
                 password: "secret",
             }
-            //   ACT
-
+            // Act
             await request(app).post("/auth/register").send(userData)
 
-            //  Assert
+            // Assert
             const userRepository = connection.getRepository(User)
-            const users = await userRepository.find()
+            const users = await userRepository.find({ select: ["password"] })
             expect(users[0].password).not.toBe(userData.password)
             expect(users[0].password).toHaveLength(60)
             expect(users[0].password).toMatch(/^\$2[a|b]\$\d+\$/)
