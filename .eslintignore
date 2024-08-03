@@ -1,2 +1,4 @@
 dist 
 node_module
+*.spec.ts
+tests/
