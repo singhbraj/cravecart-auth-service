@@ -1,5 +1,6 @@
 import "reflect-metadata"
 import express, { NextFunction, Request, Response } from "express"
+import cors from "cors"
 import logger from "./config/logger"
 import { HttpError } from "http-errors"
 import authRouter from "./routes/auth"
@@ -9,8 +10,13 @@ import cookieParser from "cookie-parser"
 
 const app = express()
 
+app.use(
+    cors({
+        // origin: ["http://localhot:5173"],
+        credentials: true,
+    }),
+)
 app.use(express.static("public"))
-
 app.use(express.json())
 app.use(cookieParser())
 
