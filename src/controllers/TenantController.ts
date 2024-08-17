@@ -36,9 +36,9 @@ export class TenantController {
 
     async getAll(req: Request, res: Response, next: NextFunction) {
         try {
-            const tentantList = await this.tenantService.getAll()
+            const data = await this.tenantService.getAll()
             this.logger.info("All tenant have been fetched")
-            res.json({ tentantList })
+            res.json({ data })
         } catch (err) {
             next(err)
         }
