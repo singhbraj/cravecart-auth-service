@@ -7,7 +7,14 @@ import createHttpError from "http-errors"
 export class UserService {
     constructor(private userRepository: Repository<User>) {}
 
-    async create({ firstName, lastName, email, password, role }: UserData) {
+    async create({
+        firstName,
+        lastName,
+        email,
+        password,
+        role,
+        tenantId,
+    }: UserData) {
         const user = await this.userRepository.findOne({
             where: { email: email },
         })
@@ -18,7 +25,7 @@ export class UserService {
         // Hash the password
         const saltRounds = 10
         const hashedPassword = await bcrypt.hash(password, saltRounds)
-
+        // console.log({ tenantId })
         try {
             return await this.userRepository.save({
                 firstName,
@@ -26,6 +33,7 @@ export class UserService {
                 email,
                 password: hashedPassword,
                 role,
+                tenant: tenantId ? { id: tenantId } : undefined,
             })
         } catch (err) {
             const error = createHttpError(
