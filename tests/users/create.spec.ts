@@ -5,6 +5,8 @@ import app from "../../src/app"
 import { User } from "../../src/entity/User"
 import { Roles } from "../../src/constants"
 import createJWKSMock from "mock-jwks"
+import { createTenant } from "../utils"
+import { Tenant } from "../../src/entity/Tenants"
 
 describe("POST /users", () => {
     let connection: DataSource
@@ -30,21 +32,26 @@ describe("POST /users", () => {
     })
 
     describe("Given all fields", () => {
-        it("should persist the user in database", async () => {
+        it("should persist the user in the database", async () => {
+            // Create tenant first
+            const tenant = await createTenant(connection.getRepository(Tenant))
+
             const adminToken = jwks.token({
                 sub: "1",
                 role: Roles.ADMIN,
             })
 
+            // Register user
             const userData = {
-                firstName: "Kishor",
-                lastName: "Singh",
-                email: "braj33singh@gmail.com",
-                password: "braj@3978",
-                tenantId: 1,
+                firstName: "Rakesh",
+                lastName: "K",
+                email: "rakesh@mern.space",
+                password: "password",
+                tenantId: tenant.id,
                 role: Roles.MANAGER,
             }
 
+            // Add token to cookie
             await request(app)
                 .post("/users")
                 .set("Cookie", [`accessToken=${adminToken}`])
@@ -52,6 +59,7 @@ describe("POST /users", () => {
 
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
+
             expect(users).toHaveLength(1)
             expect(users[0].email).toBe(userData.email)
         })
