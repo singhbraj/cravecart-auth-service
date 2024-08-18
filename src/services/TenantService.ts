@@ -13,9 +13,9 @@ export class TenantService {
         return await this.tenantRepository.find()
     }
 
-    async getById(id: number) {
+    async getById(tenantId: number) {
         return await this.tenantRepository.findOne({
-            where: { id },
+            where: { id: tenantId },
         })
     }
 

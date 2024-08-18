@@ -1,4 +1,9 @@
-import express, { NextFunction, RequestHandler, Response } from "express"
+import express, {
+    NextFunction,
+    Request,
+    RequestHandler,
+    Response,
+} from "express"
 import { Roles } from "../constants"
 import { UserController } from "../controllers/UserController"
 import { UserService } from "../services/UserService"
@@ -10,6 +15,7 @@ import updateUserValidator from "../validators/update-user-validator"
 import createUserValidator from "../validators/create-user-validator"
 import authenticate from "../middleware/authenticate"
 import { canAccess } from "../middleware/canAccess"
+import listUsersValidator from "../validators/list-users-validator"
 
 const router = express.Router()
 
@@ -39,7 +45,8 @@ router.get(
     "/",
     authenticate as RequestHandler,
     canAccess([Roles.ADMIN]),
-    (req, res, next) =>
+    listUsersValidator,
+    (req: Request, res: Response, next: NextFunction) =>
         userController.getAll(req, res, next) as unknown as RequestHandler,
 )
 
