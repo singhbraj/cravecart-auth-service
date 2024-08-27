@@ -98,9 +98,7 @@ export class TenantController {
                 name,
                 address,
             })
-
             this.logger.info("Tenant has been updated", { id: tenantId })
-
             res.json({ id: Number(tenantId) })
         } catch (err) {
             next(err)
