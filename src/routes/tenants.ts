@@ -14,6 +14,7 @@ import { canAccess } from "../middleware/canAccess"
 import { Roles } from "../constants"
 import tenantValidator from "../validators/tenant-validator"
 import { CreateTenantRequest } from "../types"
+import listTenantsValidator from "../validators/list-tenants-validator"
 
 const router = express.Router()
 
@@ -42,6 +43,7 @@ router.patch(
 
 router.get(
     "/",
+    listTenantsValidator,
     (req: Request, res: Response, next: NextFunction) =>
         tenantController.getAll(req, res, next) as unknown as RequestHandler,
 )
@@ -49,6 +51,7 @@ router.get(
 router.get(
     "/:id",
     authenticate as RequestHandler,
+    canAccess([Roles.ADMIN]),
     (req: Request, res: Response, next: NextFunction) =>
         tenantController.getOne(req, res, next) as unknown as RequestHandler,
 )
